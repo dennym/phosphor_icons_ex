@@ -1,4 +1,4 @@
-# PhosphorIcons
+# PhosphorIconsEx
 
 [![hex.pm](https://img.shields.io/hexpm/v/phosphor_icons_ex.svg)](https://hex.pm/packages/phosphor_icons_ex)
 [![docs](https://img.shields.io/badge/hex-docs-blue.svg)](https://hexdocs.pm/phosphor_icons_ex)
