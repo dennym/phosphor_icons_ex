@@ -147,4 +147,3 @@ defmodule PhosphorIconsExTest do
     assert html =~ ~r/<span>/
   end
 end
-
