@@ -1,5 +1,10 @@
 # PhosphorIcons
 
+[![hex.pm](https://img.shields.io/hexpm/v/lucide_icons.svg)](https://hex.pm/packages/phosphor_icons_ex)
+[![docs](https://img.shields.io/badge/hex-docs-blue.svg)](https://hexdocs.pm/phosphor_icons_ex)
+[![ci](https://github.com/dennym/phosphor_icons_ex/actions/workflows/ci.yml/badge.svg)](https://github.com/dennym/phosphor_icons_ex/actions/workflows/ci.yml)
+[![Hex Downloads](https://img.shields.io/hexpm/dt/phosphor_icons_ex)](https://hex.pm/packages/phosphor_icons_ex)
+
 This package adds a convenient way of using [Phosphor](https://phosphoricons.com/) with your Phoenix.LiveView applications.
 
 > Phosphor is a flexible icon family for interfaces, diagrams, presentations — whatever, really.
