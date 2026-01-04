@@ -48,7 +48,7 @@ Then run `mix deps.get`.
 where `armchair` refers to a specific icon name and the `_bold` for the specific type.
 
 > Icon names can be retrieved from `PhosphorIconsEx.icon_names/0`
-> Icons can be searched with `PhosphorIconsEx.search_icons/0`
+> Icons can be searched with `PhosphorIconsEx.search_icons/1`
 
 ## Thanks
 * phosphor for the icons
