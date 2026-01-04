@@ -7,7 +7,8 @@ This package adds a convenient way of using [Phosphor](https://phosphoricons.com
 > * 6 weights: Thin, Light, Regular, Bold, Fill, and Duotone
 > * Designed at 16 x 16px to read well small and scale up big
 > * Raw stroke information retained to fine-tune the style
-> * You can find the original repo [here](https://github.com/phosphor-icons/homepage#phosphor-icons).
+
+You can find the original repo [here](https://github.com/phosphor-icons/homepage#phosphor-icons).
 
 ## Installation
 
@@ -42,6 +43,11 @@ Then run `mix deps.get`.
 where `armchair` refers to a specific icon name and the `_bold` for the specific type.
 
 > Icon names can be retrieved from `PhosphorIconsEx.icon_names/0`
+> Icons can be searched with `PhosphorIconsEx.search_icons/0`
+
+## Thanks
+* phosphor for the icons
+* [@zoedsoupe](https://github.com/zoedsoupe) which heavily inspired this package
 
 ## Disclaimer
 This package is not affiliated with Phosphor Icons.
