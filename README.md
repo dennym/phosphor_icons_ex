@@ -24,7 +24,7 @@ Add `phosphor_icons_ex` to the list of dependencies in `mix.exs`:
 ```elixir
 def deps do
   [
-    {:phosphor_icons_ex, "~> 2.0"} # x-release-please-version
+    {:phosphor_icons_ex, "~> 2.0"}
   ]
 end
 ```
