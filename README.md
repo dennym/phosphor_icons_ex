@@ -52,7 +52,7 @@ where `armchair` refers to a specific icon name and the `_bold` for the specific
 
 ## Thanks
 * phosphor for the icons
-* [@zoedsoupe](https://github.com/zoedsoupe) which heavily inspired this package
+* [@zoedsoupe](https://github.com/zoedsoupe) which heavily inspired this package with [lucide_icons](https://github.com/zoedsoupe/lucide_icons/)
 
 ## Disclaimer
 This package is not affiliated with Phosphor Icons.
