@@ -3,6 +3,6 @@
   "version": "0.1.0",
   "license": "BSD-3-Clause",
   "dependencies": {
-    "@phosphor-icons/core": "^2.1.1"
+    "@phosphor-icons/core": "2.1.1"
   }
 }
