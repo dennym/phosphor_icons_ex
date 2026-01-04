@@ -36,7 +36,7 @@ defmodule PhosphorIconsEx.MixProject do
 
   defp docs do
     [
-      main: "PhophorIconsEx",
+      main: "PhophorsIconsEx",
       source_ref: "v#{@version}",
       source_url: @github_url,
       groups_for_modules: [LiveView: ~r/PhosphorIconsEx.LiveView/],
