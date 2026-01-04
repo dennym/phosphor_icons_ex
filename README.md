@@ -57,4 +57,4 @@ where `armchair` refers to a specific icon name and the `_bold` for the specific
 ## Disclaimer
 This package is not affiliated with Phosphor Icons.
 
-This repo is using the Phosphor Icons Core repository as a source: phosphor-icons/core.
+This repo is using the Phosphor Icons Core repository as a source: @phosphor-icons/core 
