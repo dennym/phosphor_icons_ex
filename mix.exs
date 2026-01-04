@@ -57,7 +57,7 @@ defmodule PhosphorIconsEx.MixProject do
   defp package do
     %{
       files:
-        ~w(lib/phosphor_icons lib/phosphor_icons.ex priv .formatter.exs mix.exs README.md LICENSE),
+        ~w(lib/phosphor_icons_ex lib/phosphor_icons_ex.ex priv .formatter.exs mix.exs README.md LICENSE),
       licenses: ["BSD-3-Clause"],
       links: %{"GitHub" => @github_url}
     }
