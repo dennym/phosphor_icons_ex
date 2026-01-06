@@ -60,11 +60,13 @@ defmodule YourIconComponent do
   use Phoenix.Component
 
   attr :class, :string, default: ""
-  attr :name, :string
+  attr :icon, :string
 
-  def icon(assigns) do
+  def icon(%{icon: icon} = assigns) do
+    assigns = Map.delete(assigns, :icon)
+
     ~H"""
-    {apply(PhosphorIconsEx, String.to_atom(@name), [%{__changed__: nil, class: @class}])}
+    {apply(PhosphorIconsEx, String.to_atom(@name), [assigns])}
     """
   end
 end
