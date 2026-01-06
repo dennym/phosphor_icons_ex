@@ -15,6 +15,8 @@ This package adds a convenient way of using [Phosphor](https://phosphoricons.com
 
 You can find the original repo [here](https://github.com/phosphor-icons/homepage#phosphor-icons).
 
+> Note: As this lib is dealing with over 9000 icons the compile time may be longer than usual.
+
 ## Installation
 
 > **Warning:** This library only supports phoenix_live_view v1.0+
@@ -51,8 +53,8 @@ where `armchair` refers to a specific icon name and the `_bold` for the specific
 > Icons can be searched with `PhosphorIconsEx.search_icons/1`
 
 ## Thanks
-* phosphor for the icons
-* [@zoedsoupe](https://github.com/zoedsoupe) which heavily inspired this package with [lucide_icons](https://github.com/zoedsoupe/lucide_icons/)
+* phosphor for the icons licensed under [MIT](https://github.com/phosphor-icons/homepage/blob/master/LICENSE)
+* [@zoedsoupe](https://github.com/zoedsoupe) which heavily inspired this package with [lucide_icons](https://github.com/zoedsoupe/lucide_icons/) licensed under [BSD](https://github.com/zoedsoupe/lucide_icons/blob/main/LICENSE)
 
 ## Disclaimer
 This package is not affiliated with Phosphor Icons.
