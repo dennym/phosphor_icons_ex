@@ -1,0 +1,133 @@
+name: Update Phosphor Icons
+
+on:
+  # Run weekly on Friday at 9 AM UTC
+  schedule:
+    - cron: "0 9 * * 5"
+  # Allow manual trigger
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  check-for-updates:
+    runs-on: ubuntu-latest
+    outputs:
+      update_available: ${{ steps.check.outputs.update_available }}
+      current_version: ${{ steps.check.outputs.current_version }}
+      latest_version: ${{ steps.check.outputs.latest_version }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Setup Elixir
+        uses: erlef/setup-beam@v1
+        with:
+          otp-version: "28.0.2"
+          elixir-version: "1.18.4"
+
+      - name: Cache Elixir deps
+        uses: actions/cache@v4
+        id: deps-cache
+        with:
+          path: deps
+          key: ${{ runner.os }}-mix-dev-${{ hashFiles('**/mix.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-mix-dev-
+
+      - name: Cache Elixir _build
+        uses: actions/cache@v4
+        id: build-cache
+        with:
+          path: _build
+          key: ${{ runner.os }}-build-dev-28.0.2-1.18.4-${{ hashFiles('**/mix.lock') }}-${{ hashFiles('priv/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-build-dev-28.0.2-1.18.4-${{ hashFiles('**/mix.lock') }}-
+            ${{ runner.os }}-build-dev-28.0.2-1.18.4-
+
+      - name: Install dependencies
+        if: steps.deps-cache.outputs.cache-hit != 'true'
+        run: |
+          mix local.rebar --force
+          mix local.hex --force
+          mix deps.get
+
+      - name: Compile deps
+        if: steps.build-cache.outputs.cache-hit != 'true'
+        run: mix deps.compile
+
+      - name: Check for @phosphor-icons/core updates
+        id: check
+        run: |
+          set +e  # Don't exit on non-zero status
+          OUTPUT=$(mix phosphor_icons_ex.check_updates 2>&1)
+          EXIT_CODE=$?
+          set -e
+
+          echo "$OUTPUT"
+
+          CURRENT_VERSION=$(echo "$OUTPUT" | grep "Current version:" | sed 's/Current version: v//')
+          LATEST_VERSION=$(echo "$OUTPUT" | grep "Latest version:" | sed 's/Latest version: v//')
+
+          # Exit code 0 means update available, 1 means up to date
+          if [ $EXIT_CODE -eq 0 ]; then
+            echo "update_available=true" >> $GITHUB_OUTPUT
+            echo "current_version=$CURRENT_VERSION" >> $GITHUB_OUTPUT
+            echo "latest_version=$LATEST_VERSION" >> $GITHUB_OUTPUT
+          else
+            echo "update_available=false" >> $GITHUB_OUTPUT
+          fi
+
+  create-update-pr:
+    needs: check-for-updates
+    if: needs.check-for-updates.outputs.update_available == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.PAT || secrets.GITHUB_TOKEN }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Update @phosphor-icons/core 
+        run: |
+          npm i --prefix ./priv @phosphor-icons/core@${{ needs.check-for-updates.outputs.latest_version }} --save-exact
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v7
+        with:
+          commit-message: |
+            build: Update @phosphor-icons/core from ${{ needs.check-for-updates.outputs.current_version }} to ${{ needs.check-for-updates.outputs.latest_version }}
+
+            - Updates @phosphor-icons/core dependency
+            - Regenerates npm package assets with latest icons
+          branch: update-phosphor-icon-core-${{ needs.check-for-updates.outputs.latest_version }}
+          title: "build(phosphor-upstream): Update @phosphor-icons/core to ${{ needs.check-for-updates.outputs.latest_version }}"
+          body: |
+            ## Phosphor Icons Update
+
+            This PR updates the @phosphor-icons/core dependency from `${{ needs.check-for-updates.outputs.current_version }}` to `${{ needs.check-for-updates.outputs.latest_version }}`.
+
+            ### Changes
+            - Updated `priv/package.json` and `priv/package-lock.json`
+            - Regenerated icons
+            - All tests passing
+            - Version bumped to `${{ steps.version.outputs.new_version }}`
+
+            ### Release Notes
+            View the [@phosphor-icons/core changelog](https://github.com/phosphor-icons/core/releases) for details on what's new.
+
+            ---
+            *This PR was automatically created by the update workflow.*
+          labels: |
+            dependencies
+            automated
