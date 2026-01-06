@@ -30,7 +30,7 @@ defmodule PhosphorIconsEx.MixProject do
       {:phoenix_live_view, "~> 1.0"},
       {:lazy_html, "~> 0.1"},
       {:ex_doc, "~> 0.27", only: :dev, runtime: false},
-      {:req, "~> 0.5", only: [:dev, :test], runtime: false}
+      {:finch, "0.20.0", only: [:dev, :test], runtime: false}
     ]
   end
 
