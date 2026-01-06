@@ -5,7 +5,7 @@
 [![ci](https://github.com/dennym/phosphor_icons_ex/actions/workflows/ci.yml/badge.svg)](https://github.com/dennym/phosphor_icons_ex/actions/workflows/ci.yml)
 [![Hex Downloads](https://img.shields.io/hexpm/dt/phosphor_icons_ex)](https://hex.pm/packages/phosphor_icons_ex)
 
-This package provides an easy way to use [Phosphor](https://phosphoricons.com/) icons in your Phoenix.LiveView applications. Many existing Elixir packages are either outdated or take an opinionated, component-based approach; this package instead returns the SVGs from functions so you can use them in components or directly in EEx/HEEx templates.
+This package provides an easy way to use [Phosphor](https://phosphoricons.com/) icons in your Phoenix.LiveView applications. Many existing Elixir packages are either outdated or take an opinionated, component-based approach; this package instead returns the SVGs from functions so you can use them in your own custom components or directly in EEx/HEEx templates.
 
 > Phosphor is a flexible icon family for interfaces, diagrams, presentations — whatever, really.
 > * 1,248 icons and counting
@@ -38,19 +38,39 @@ Then run `mix deps.get`.
 ### With Heex
 
 ```elixir
-<PhosphorIconsEx.armchair class="h-4 w-4" aria-hidden/>
+<PhosphorIconsEx.armchair class="h-4 w-4" aria-hidden />
 
-<PhosphorIconsEx.armchair_thin class="h-4 w-4" aria-hidden/>
-<PhosphorIconsEx.armchair_light class="h-4 w-4" aria-hidden/>
-<PhosphorIconsEx.armchair_bold class="h-4 w-4" aria-hidden/>
-<PhosphorIconsEx.armchair_fill class="h-4 w-4" aria-hidden/>
-<PhosphorIconsEx.armchair_duotone class="h-4 w-4" aria-hidden/>
+<PhosphorIconsEx.armchair_thin class="h-4 w-4" aria-hidden />
+<PhosphorIconsEx.armchair_light class="h-4 w-4" aria-hidden />
+<PhosphorIconsEx.armchair_bold class="h-4 w-4" aria-hidden />
+<PhosphorIconsEx.armchair_fill class="h-4 w-4" aria-hidden />
+<PhosphorIconsEx.armchair_duotone class="h-4 w-4" aria-hidden />
 ```
 
 where `armchair` refers to a specific icon name and the `_bold` for the specific type.
 
 > Icon names can be retrieved from `PhosphorIconsEx.icon_names/0`
 > Icons can be searched with `PhosphorIconsEx.search_icons/1`
+
+### In your own custom components
+
+```elixir
+
+defmodule YourIconComponent do
+  use Phoenix.Component
+
+  attr :class, :string, default: ""
+  attr :name, :string
+
+  def icon(assigns) do
+    ~H"""
+    {apply(PhosphorIconsEx, String.to_atom(@name), [%{__changed__: nil, class: @class}])}
+    """
+  end
+end
+
+<.icon name="armchair" class="" />
+```
 
 ## Thanks
 * phosphor for the icons licensed under [MIT](https://github.com/phosphor-icons/homepage/blob/master/LICENSE)
