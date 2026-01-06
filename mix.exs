@@ -25,13 +25,18 @@ defmodule PhosphorIconsEx.MixProject do
   end
 
   defp deps do
-    [
+    base_deps = [
       {:phoenix_html, "~> 4.0"},
       {:phoenix_live_view, "~> 1.0"},
       {:lazy_html, "~> 0.1"},
       {:ex_doc, "~> 0.27", only: :dev, runtime: false},
       {:finch, "0.20.0", only: [:dev, :test], runtime: false}
     ]
+
+    case Version.match?(System.version(), "<= 1.17.0") do
+      true -> base_deps ++ {:jason, "~> 1.4", optional: true}
+      _ -> base_deps
+    end
   end
 
   defp docs do
