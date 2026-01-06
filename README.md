@@ -79,4 +79,6 @@ end
 ## Disclaimer
 This package is not affiliated with Phosphor Icons.
 
+The package version is always in parity with the @phosphor-icons/core version.
+
 This repo is using the Phosphor Icons Core repository as a source: @phosphor-icons/core 
