@@ -33,8 +33,8 @@ defmodule PhosphorIconsEx.MixProject do
       {:finch, "0.20.0", only: [:dev, :test], runtime: false}
     ]
 
-    case Version.match?(System.version(), "<= 1.17.0") do
-      true -> base_deps ++ {:jason, "~> 1.4", optional: true}
+    case Version.match?(System.version(), "< 1.18.0") do
+      true -> base_deps ++ [{:jason, "~> 1.4", optional: true}]
       _ -> base_deps
     end
   end
